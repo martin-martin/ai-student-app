@@ -1,0 +1,13 @@
+<div>
+    {% if class_room_list %}
+    {% for class in class_room_list %}
+    <form action="{% url 'student_list' class.id %}" method="post">
+        {% csrf_token %}
+        <button  type="submit">{{ class }}</button>
+    </form>
+    {% endfor %}
+    {% else %}
+    <p>No class to show.</p>
+    {% endif %}
+    
+</div>

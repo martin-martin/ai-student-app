@@ -1,0 +1,19 @@
+<h3>{{ classroom.class_room }}</h3>
+
+ {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %} 
+ 
+
+        {% for student in classroom.member_set.all %} 
+        <form action="{% url 'checkout' student.id %}" method="post">
+            {% csrf_token %}
+    
+    <ul>
+            <input type="radio" name='student' id="student{{ forloop.counter }}" value="{{ student.id }}">
+            <label for="student{{ forloop.counter }}">{{ student }} - {{ student.id }}</label><br>
+    </ul>
+    {% endfor %}
+    
+    <input type="submit" value="Yes this is my child">
+    </form>
+
+   
