@@ -1,8 +1,10 @@
 from lib2to3.refactor import get_all_fix_names
-from django.shortcuts import get_object_or_404, render
+
 from django.http import HttpResponse, HttpResponseRedirect
-from interaction.models import Teacher, Member, ClassRoom, Checkout
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+
+from interaction.models import Checkout, ClassRoom, Member, Teacher
 
 # Create your views here.
 
@@ -20,5 +22,10 @@ def student_list(request, classroom_pk):
     context = {'classroom': classroom}
     return render(request, 'interaction/student_list.html', context=context)
 
-def checkout(request, student_pk):
-    return HttpResponse("This is checkout page. student pk %s." % student_pk)
+def checkout(request):
+    if request.method == "POST":
+        # print(request.POST)
+        student_id = request.POST["student"]
+        return HttpResponse(f"This is checkout page. student pk {student_id}")
+    else:
+        return HttpResponse(f"This is an empty checkout page.")
